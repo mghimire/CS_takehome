@@ -8,6 +8,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import GradientBoostingRegressor
 
 class LinearRegressionModel:
     def __init__(self):
@@ -30,13 +31,13 @@ class LinearRegressionModel:
 
 class GradientBoostingModel:
     def __init__(self):
-        self.model = None  # Use your preferred implementation here
+        self.model = GradientBoostingRegressor()
 
     def train(self, X_train, y_train):
-        pass  # Implement the training for your chosen gradient boosting model
+        self.model.fit(X_train, y_train)
 
     def predict(self, X_test):
-        pass  # Implement the prediction for your chosen gradient boosting model
+        return self.model.predict(X_test)
 
 
 class LSTMModel(nn.Module):
@@ -96,7 +97,15 @@ if __name__ == "__main__":
   # Calculate and print Mean Squared Error for Linear Regression
   mse_linear_regression = mean_squared_error(y_test, linear_regression_predictions)
   print("Mean Squared Error (Linear Regression):", mse_linear_regression)
-  
+
+  # Repeat the process for Gradient Boosting
+  gradient_boosting_model = GradientBoostingModel()
+  gradient_boosting_model.train(X_train, y_train)
+  gradient_boosting_predictions = gradient_boosting_model.predict(X_test)
+  mse_gradient_boosting = mean_squared_error(y_test, gradient_boosting_predictions)
+  print("Mean Squared Error (Gradient Boosting):", mse_gradient_boosting)
+
+    
   # Instantiate and train LSTM model
   lstm_model = LSTMModel(input_size=X_train_tensor.shape[2])
   criterion = nn.MSELoss()
