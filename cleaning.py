@@ -7,3 +7,6 @@ def removebadval(data, badval=999999):
 def skipbadrow(data, badthres=0.5):
   na_threshold = int(badthres * len(data.columns))
   return data.dropna(thresh=na_threshold)
+
+def cleanQs(data, yidx):
+  return data[data['Q'+str(yidx)] >= 0.9999]
