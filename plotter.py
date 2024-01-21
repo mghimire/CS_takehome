@@ -9,5 +9,5 @@ if __name__ == "__main__":
     df = import_csv_parquet(filename)
 
     # Use pandas plotting extension
-    df.plot(x='time', y='X329', kind='line')
+    df.plot(x='time', y='X25', kind='line')
     plt.show()

@@ -7,7 +7,7 @@ from dataimport import *
 filepath = 'X:\Documents\qr_takehome\QR_TAKEHOME_20220215.csv.parquet'
 df = import_csv_parquet(filepath)
 
-X_train = df[(['X329', 'X8', 'X351', 'X372', 'X370', 'X320', 'X373', 'X353', 'X328', 'X68'])]
+X_train = df[(['X375', 'X128', 'X119', 'X120', 'X121', 'X122', 'X123', 'X124', 'X125', 'X126'])]
 
 # Calculate the correlation matrix using training data
 correlation_matrix = X_train.corr()
