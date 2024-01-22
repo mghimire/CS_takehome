@@ -10,7 +10,7 @@ from cleaning import extract
 linear_model_y1 = LinearRegressionModel()
 linear_model_y2 = LinearRegressionModel()
 
-#Set Features
+# Set Features from feature_selection.py outputs (documented in feature_selection_summary.txt)
 features1 = ['X304', 'X239', 'X118', 'X25', 'X119', 'X86', 'X87', 'X26', 'X116', 'X84']
 features2 = ['X304', 'X322', 'X25', 'X84', 'X85', 'X325', 'X117', 'X116', 'X239', 'X118']
 

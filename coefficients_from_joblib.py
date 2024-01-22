@@ -14,7 +14,7 @@ features_y1 = linear_model_y1.model.feature_names_in_
 coefficients_y2 = linear_model_y2.model.coef_
 features_y2 = linear_model_y2.model.feature_names_in_
 
-# Print or use the coefficients and features as needed
+# Print the coefficients and features
 print("Linear Model Y1 Coefficients:")
 for feature, coef in zip(features_y1, coefficients_y1):
     print(f"{feature}: {coef}")

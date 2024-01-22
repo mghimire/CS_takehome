@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 
 from sklearn.metrics import mean_squared_error
@@ -6,7 +5,6 @@ from sklearn.linear_model import LinearRegression
 
 import xgboost as xgb
 
-import torch
 import torch.nn as nn
 
 from dataimport import import_csv_parquet
@@ -202,34 +200,3 @@ if __name__ == "__main__":
 
     print("Root Mean Squared Error (Y1):", root_mean_squared_error_y1)
     print("Root Mean Squared Error (Y2):", root_mean_squared_error_y2)
-
-    """ # Create DataLoader for training
-    train_dataset = TensorDataset(X_train_tensor, y_train_tensor)
-    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-
-
-    # Instantiate and train XGBoost model for Y1
-    xgboost_model_y1 = XGBoostTimeSeriesModel()
-    xgboost_model_y1.train(X_train, y_train)
-    xgboost_predictions_y1 = xgboost_model_y1.predict(X_test)
-
-    # LSTM Model
-    lstm_model_y1 = LSTMModel(input_size=X_train_tensor.shape[2])
-
-    # Train LSTM model for Y1
-    train_lstm_model(lstm_model_y1, train_loader, nn.MSELoss(), optim.Adam(lstm_model_y1.parameters()), epochs=10)
-
-    # Make predictions using LSTM model for Y1
-    lstm_predictions_y1 = lstm_model_y1.predict(X_test_tensor)
-
-    # Reshape predictions for evaluation
-    lstm_predictions_y1 = lstm_predictions_y1.detach().numpy().reshape(-1)
-
-    # Evaluate ARIMA, XGBoost, and LSTM models for Y1
-    mse_arima_y1 = mean_squared_error(y_test, arima_predictions_y1)
-    mse_xgboost_y1 = mean_squared_error(y_test, xgboost_predictions_y1)
-    mse_lstm_y1 = mean_squared_error(y_test, lstm_predictions_y1)
-
-    print("Mean Squared Error (ARIMA - Y1):", mse_arima_y1)
-    print("Mean Squared Error (XGBoost - Y1):", mse_xgboost_y1)
-    print("Mean Squared Error (LSTM - Y1):", mse_lstm_y1) """
