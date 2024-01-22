@@ -2,16 +2,16 @@ import pandas as pd
 import numpy as np
 import os
 
-from sklearn.linear_model import Lasso, Ridge, ElasticNet, LinearRegression
+from sklearn.linear_model import Lasso, Ridge, ElasticNet
 from sklearn.feature_selection import SelectFromModel
 from sklearn.preprocessing import StandardScaler
-from sklearn.impute import SimpleImputer
+from sklearn.model_selection import GridSearchCV, KFold
 
-from dataimport import *
-from cleaning import *
+from dataimport import import_csv_parquet
+from cleaning import cleanQs
 
 class Feature_Selection:
-    def __init__(self, model_type='lasso', alpha=7.5, l1_ratio=0.5, tol=0.001, max_features=10, drop_ratio_threshold=0.1):
+    def __init__(self, model_type='lasso', alpha=1.0, l1_ratio=0.5, tol=0.001, max_features=10, drop_ratio_threshold=0.1):
         """
         Feature Selection Tracker Class.
 
@@ -72,11 +72,8 @@ class Feature_Selection:
         """
         X_scaled = self.scaler.fit_transform(X)
 
-        # Calculate autocorrelation values for each feature
-        autocorr_values = pd.DataFrame(X_scaled).apply(lambda x: x.autocorr(lag=100), axis=0)
-
         self.model.fit(X_scaled, y)
-        self.coefficients.append(self.model.coef_ * autocorr_values)  # Multiply coefficients by autocorrelation values
+        self.coefficients.append(self.model.coef_)
 
     def get_selected_features(self):
         if not self.coefficients:
@@ -108,7 +105,7 @@ class Feature_Selection:
 if __name__ == "__main__":
   # Configure parameters for script
   directory_path = ".."
-  pct_data_to_process = 50
+  pct_data_to_process = 70
   fromstart = True
 
   # Initialize all selector modules
@@ -116,8 +113,8 @@ if __name__ == "__main__":
   lasso_selector_y2 = Feature_Selection(model_type='lasso')
   ridge_selector_y1 = Feature_Selection(model_type='ridge')
   ridge_selector_y2 = Feature_Selection(model_type='ridge')
-  """ elnet_selector_y1 = Feature_Selection(model_type='elasticnet')
-  elnet_selector_y2 = Feature_Selection(model_type='elasticnet') """
+  elnet_selector_y1 = Feature_Selection(model_type='elasticnet')
+  elnet_selector_y2 = Feature_Selection(model_type='elasticnet')
   
   # Get a list of all files in the directory
   all_files = os.listdir(directory_path)
@@ -156,16 +153,16 @@ if __name__ == "__main__":
     Xy1 = dfy1.drop(['time', 'sym', 'exch', 'Q1', 'Q2', 'Y1', 'Y2'], axis=1)
     Xy2 = dfy2.drop(['time', 'sym', 'exch', 'Q1', 'Q2', 'Y1', 'Y2'], axis=1)
 
-    # Handle NaN values by linear imputation
-    Xy1 = Xy1.interpolate(method='linear', axis=0).ffill().bfill()
-    Xy2 = Xy2.interpolate(method='linear', axis=0).ffill().bfill()
+    # Handle NaN values by linear imputation (use spline interpolation instead)
+    Xy1 = Xy1.interpolate(method='pad', axis=0).ffill().bfill()
+    Xy2 = Xy2.interpolate(method='pad', axis=0).ffill().bfill()
 
     lasso_selector_y1.update_feature_selection(Xy1, y1)
     lasso_selector_y2.update_feature_selection(Xy2, y2)
     ridge_selector_y1.update_feature_selection(Xy1, y1)
     ridge_selector_y2.update_feature_selection(Xy2, y2)
-    """ elnet_selector_y1.update_feature_selection(Xy1, y1)
-    elnet_selector_y2.update_feature_selection(Xy2, y2) """
+    elnet_selector_y1.update_feature_selection(Xy1, y1)
+    elnet_selector_y2.update_feature_selection(Xy2, y2)
 
   # Print selected feature keys for Y1
   selected_features_y1_lasso = lasso_selector_y1.get_selected_features()
@@ -174,8 +171,8 @@ if __name__ == "__main__":
   selected_features_y1_ridge = ridge_selector_y1.get_selected_features()
   print("Ridge Selected Features for Y1:", list(selected_features_y1_ridge.keys()))
 
-  """ selected_features_y1_elnet = elnet_selector_y1.get_selected_features()
-  print("Elastic Net Selected Features for Y1:", list(selected_features_y1_elnet.keys())) """
+  selected_features_y1_elnet = elnet_selector_y1.get_selected_features()
+  print("Elastic Net Selected Features for Y1:", list(selected_features_y1_elnet.keys()))
 
   # Print selected feature keys for Y2
   selected_features_y2_lasso = lasso_selector_y2.get_selected_features()
@@ -184,5 +181,5 @@ if __name__ == "__main__":
   selected_features_y2_ridge = ridge_selector_y2.get_selected_features()
   print("Ridge Selected Features for Y2:", list(selected_features_y2_ridge.keys()))
 
-  """ selected_features_y2_elnet = elnet_selector_y2.get_selected_features()
-  print("Elastic Net Selected Features for Y2:", list(selected_features_y2_elnet.keys())) """
+  selected_features_y2_elnet = elnet_selector_y2.get_selected_features()
+  print("Elastic Net Selected Features for Y2:", list(selected_features_y2_elnet.keys()))

@@ -1,0 +1,11 @@
+Lasso performance in Linear Regression:
+Average Root Mean Squared Error across all test data (Y1): 11.288543383280436
+Average Root Mean Squared Error across all test data (Y2): 13.517786524030898
+
+Ridge performance in Linear Regression:
+Average Root Mean Squared Error across all test data (Y1): 10.074824788835313
+Average Root Mean Squared Error across all test data (Y2): 13.122130786048041
+
+Elastic Net performance in Linear Regression:
+Average Root Mean Squared Error across all test data (Y1): 11.276143095228408
+Average Root Mean Squared Error across all test data (Y2): 13.535945807562934

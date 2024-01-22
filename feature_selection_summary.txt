@@ -15,7 +15,7 @@ Lasso Selected Features for Y2: ['X304', 'X322', 'X116', 'X239', 'X148', 'X26', 
 Ridge Selected Features for Y2: ['X46', 'X8', 'X372', 'X149', 'X148', 'X340', 'X84', 'X116', 'X329', 'X325']
 Elastic Net Selected Features for Y2: ['X304', 'X322', 'X325', 'X84', 'X85', 'X117', 'X116', 'X239', 'X25', 'X87']
 
-50% data with autocorr(lag=2): Extremely minor differences
+50% data with autocorr(lag=2): (Extremely minor differences)
 Lasso Selected Features for Y1: ['X304', 'X116', 'X239', 'X26', 'X322', 'X149', 'X118', 'X119', 'X138', 'X242']
 Ridge Selected Features for Y1: ['X149', 'X239', 'X87', 'X119', 'X8', 'X340', 'X46', 'X108', 'X140', 'X372']
 Elastic Net Selected Features for Y1: ['X304', 'X239', 'X118', 'X119', 'X86', 'X87', 'X116', 'X322', 'X84', 'X85']
@@ -46,3 +46,30 @@ alpha = 7.5
 70% data with autocorr(lag=1):
 Lasso Selected Features for Y1: ['X375', 'X128', 'X119', 'X120', 'X121', 'X122', 'X123', 'X124', 'X125', 'X126']
 Lasso Selected Features for Y2: ['X324', 'X117', 'X304', 'X26', 'X25']
+
+alpha = 7.5
+70% data without autocorr:
+Lasso Selected Features for Y1: ['X375', 'X128', 'X119', 'X120', 'X121', 'X122', 'X123', 'X124', 'X125', 'X126']
+Ridge Selected Features for Y1: ['X149', 'X239', 'X119', 'X87', 'X340', 'X8', 'X112', 'X118', 'X148', 'X9']
+Elastic Net Selected Features for Y1: ['X323', 'X304', 'X322', 'X350', 'X48', 'X169', 'X45', 'X26', 'X47', 'X118']
+Lasso Selected Features for Y2: ['X324', 'X118', 'X304', 'X26', 'X25']
+Ridge Selected Features for Y2: ['X149', 'X84', 'X8', 'X85', 'X353', 'X116', 'X117', 'X171', 'X46', 'X325']
+Elastic Net Selected Features for Y2: ['X304', 'X322', 'X324', 'X25', 'X323', 'X26', 'X307', 'X119', 'X117', 'X84']
+
+alpha = 100
+70%  data without autocorr: (same lasso results for Y1 and Y2; surely degenerate)
+Lasso Selected Features for Y1: ['X375', 'X128', 'X119', 'X120', 'X121', 'X122', 'X123', 'X124', 'X125', 'X126']
+Ridge Selected Features for Y1: ['X149', 'X239', 'X118', 'X119', 'X87', 'X86', 'X112', 'X322', 'X7', 'X169']
+Elastic Net Selected Features for Y1: ['X375', 'X128', 'X119', 'X120', 'X121', 'X122', 'X123', 'X124', 'X125', 'X126']
+Lasso Selected Features for Y2: ['X375', 'X128', 'X119', 'X120', 'X121', 'X122', 'X123', 'X124', 'X125', 'X126']
+Ridge Selected Features for Y2: ['X84', 'X85', 'X116', 'X117', 'X149', 'X322', 'X325', 'X353', 'X46', 'X68']
+Elastic Net Selected Features for Y2: ['X375', 'X128', 'X119', 'X120', 'X121', 'X122', 'X123', 'X124', 'X125', 'X126']
+
+back to alpha = 1 due to hyperparameter search result
+70% data without autocorr:
+Lasso Selected Features for Y1: ['X304', 'X239', 'X116', 'X26', 'X25', 'X322', 'X118', 'X48', 'X119', 'X149']
+Ridge Selected Features for Y1: ['X149', 'X8', 'X239', 'X340', 'X9', 'X87', 'X119', 'X372', 'X10', 'X108']
+Elastic Net Selected Features for Y1: ['X304', 'X239', 'X118', 'X25', 'X119', 'X86', 'X87', 'X26', 'X116', 'X84']
+Lasso Selected Features for Y2: ['X304', 'X322', 'X239', 'X25', 'X116', 'X324', 'X26', 'X118', 'X325', 'X148']
+Ridge Selected Features for Y2: ['X8', 'X372', 'X350', 'X340', 'X9', 'X149', 'X46', 'X84', 'X353', 'X328']
+Elastic Net Selected Features for Y2: ['X304', 'X322', 'X25', 'X84', 'X85', 'X325', 'X117', 'X116', 'X239', 'X118']
